@@ -27,7 +27,7 @@ on the single main js thread.
 There are two methods for executing scripts on child processes, exec which collects output
 in the form of a callback function, and spawn() which uses an events based system and attaches to stderr stdin and stdout.
 
-I have created a lab setup using nodejs, express and python to test the data output abilities of this libary and discovered that it doesn't run in real time and will only output data once the script has been closed. to get this working just run npm init and npm i express, then run node index.js and point a browser at localhost:3000 and localhost:/files/.
+I have created a lab setup using Nodejs, express and python to test the data output abilities of this library and discovered that it doesn't run in real time and will only output data once the script has been closed. to get this working just run npm init and npm i express, then run node index.js and point a browser at localhost:3000 and localhost:/files/.
 
 ## Findings using this approach.
 
@@ -35,7 +35,10 @@ Using the stream method does allow the execution of commands in the provided lab
 
 In both cases the server will only return the data once the program has closed, halting the loading of the webpage.
 
-This appears to be appropiate for the use case of firing off a script and receiving back the output of the command any errors that occured and the exit code of said command.
+However it was possible to process multiple requests at once. for example the files command ran whilst the example sleep,print python script.
+
+This appears to be appropriate for the use case of firing off a script and receiving back the output of the command any errors that occurred and the exit code of said command.
+
 
 # References
 
