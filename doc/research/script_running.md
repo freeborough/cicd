@@ -29,6 +29,9 @@ in the form of a callback function, and spawn() which uses an events based syste
 
 I have created a lab setup using Nodejs, express and python to test the data output abilities of this library and discovered that it doesn't run in real time and will only output data once the script has been closed. to get this working just run npm init and npm i express, then run node index.js and point a browser at localhost:3000 and localhost:/files/.
 
+Exec should be used for quick and dirty tasks, spawn should be used for bigger tasks with a lot of output as buffering use by exec takes a lot of memory in comparassion to streaming used by spawn.
+
+Spawn can be used to fullfil promises but I do not have enough knowledge on the subject to test that.
 ## Findings using this approach.
 
 Using the stream method does allow the execution of commands in the provided lab setup a shell command to list all child files and a python script that prints 11.
