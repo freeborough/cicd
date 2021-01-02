@@ -27,21 +27,31 @@ on the single main js thread.
 There are two methods for executing scripts on child processes, exec which collects output
 in the form of a callback function, and spawn() which uses an events based system and attaches to stderr stdin and stdout.
 
-I have created a lab setup using Nodejs, express and python to test the data output abilities of this library and discovered that it doesn't run in real time and will only output data once the script has been closed. to get this working just run npm init and npm i express, then run node index.js and point a browser at localhost:3000 and localhost:/files/.
+Exec should be used for quick and dirty tasks, spawn should be used for bigger tasks with a lot of output as buffering use by exec takes a lot of memory in comparison to streaming used by spawn.
 
-Exec should be used for quick and dirty tasks, spawn should be used for bigger tasks with a lot of output as buffering use by exec takes a lot of memory in comparassion to streaming used by spawn.
-
-Spawn can be used to fullfil promises but I do not have enough knowledge on the subject to test that.
+Spawn can be used to fulfil promises but I do not have enough knowledge on the subject to test that.
 ## Findings using this approach.
 
 Using the stream method does allow the execution of commands in the provided lab setup a shell command to list all child files and a python script that prints 11.
 
-In both cases the server will only return the data once the program has closed, halting the loading of the webpage.
-
-However it was possible to process multiple requests at once. for example the files command ran whilst the example sleep,print python script.
+**For python scripts it is neccesary to use python -u to force python to flush print statements to stdout.**
 
 This appears to be appropriate for the use case of firing off a script and receiving back the output of the command any errors that occurred and the exit code of said command.
 
 
+# Conclusion
+
+Child_process module should do what we want by using the spawn function we can stream data in real-time back to the main node thread by hooking into stderr, stdout and stdin, some wrappers 
+for this module for certain languages exist like python-shell. 
+
+This module appears to meet all the criteria above, specifying the working directory, running the command async and allowing promises, handles crashes in a command gracefully as it captures the exit code and can capture the output of a command in real-time as long as it is flushed to stdout.
+
+
+
+# Lab setup
+
+There are two lab setups for this research purpose, index.js and spawner.js, both are found in in the lab folder.
+
+* Run node index.js and then point a browser at localhost:3000 and localhost:3000/files the first should print 1-11 and /files will return a list of all the files in the lab directory.
 # References
 
