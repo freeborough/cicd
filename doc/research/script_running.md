@@ -39,6 +39,14 @@ Using the stream method does allow the execution of commands in the provided lab
 This appears to be appropriate for the use case of firing off a script and receiving back the output of the command any errors that occurred and the exit code of said command.
 
 
+# Lab setup
+
+There are two lab setups for this research purpose, index.js and spawner.js, both are found in in the lab folder.
+
+* Run node index.js and then point a browser at localhost:3000 and localhost:3000/files the first should print 1-11 and /files will return a list of all the files in the lab directory.
+
+* Run node spawner.js command args will run any command passed to it and output any data the command flushes to stdout.
+
 # Conclusion
 
 Child_process module should do what we want by using the spawn function we can stream data in real-time back to the main node thread by hooking into stderr, stdout and stdin, some wrappers 
@@ -48,10 +56,10 @@ This module appears to meet all the criteria above, specifying the working direc
 
 
 
-# Lab setup
 
-There are two lab setups for this research purpose, index.js and spawner.js, both are found in in the lab folder.
 
-* Run node index.js and then point a browser at localhost:3000 and localhost:3000/files the first should print 1-11 and /files will return a list of all the files in the lab directory.
+
+
+
 # References
 
